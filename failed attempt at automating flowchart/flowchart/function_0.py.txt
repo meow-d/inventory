@@ -1,0 +1,32 @@
+st3=>start: start main
+io5=>inputoutput: input: 
+op8=>operation: first_column = ['Code', 'Description', 'Category', 'Unit', 'Price', 'Quantity', 'Minimum']
+sub10=>subroutine: print('Welcome to this very badly made invenvory system.')
+op12=>operation: inventory = init(first_column)
+op14=>operation: current_user_type = user_authentication()
+cond17=>condition: if (current_user_type == 'admin')
+sub21=>subroutine: admin_user_interface(inventory)
+e48=>end: end main
+cond26=>condition: if (current_user_type == 'inventory-checker')
+sub30=>subroutine: inventory_checker_user_interface(inventory)
+cond35=>condition: if (current_user_type == 'purchaser')
+sub39=>subroutine: purchaser_user_interface(inventory)
+sub43=>subroutine: print('Invalid user type. Exiting...')
+
+st3->io5
+io5->op8
+op8->sub10
+sub10->op12
+op12->op14
+op14->cond17
+cond17(yes)->sub21
+sub21->e48
+cond17(no)->cond26
+cond26(yes)->sub30
+sub30->e48
+cond26(no)->cond35
+cond35(yes)->sub39
+sub39->e48
+cond35(no)->sub43
+sub43->e48
+

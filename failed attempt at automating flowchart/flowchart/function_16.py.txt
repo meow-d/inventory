@@ -1,0 +1,25 @@
+st3=>start: start input_row_number
+io5=>inputoutput: input: data, question
+cond9=>condition: while True
+op42=>operation: row_number = input_int(question)
+cond45=>condition: if (row_number == 0)
+sub49=>subroutine: print('Please input a number above 0. ', end='')
+cond54=>condition: if (row_number > len(data))
+sub58=>subroutine: print('Row does not exist')
+io65=>inputoutput: output:  row_number
+e63=>end: end function return
+e72=>end: end input_row_number
+
+st3->io5
+io5->cond9
+cond9(yes)->op42
+op42->cond45
+cond45(yes)->sub49
+sub49->cond9
+cond45(no)->cond54
+cond54(yes)->sub58
+sub58->cond9
+cond54(no)->io65
+io65->e63
+cond9(no)->e72
+

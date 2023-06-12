@@ -1,0 +1,390 @@
+op2=>operation: import os
+op4=>operation: from getpass import getpass
+st7=>start: start main
+io9=>inputoutput: input: 
+op12=>operation: first_column = ['Code', 'Description', 'Category', 'Unit', 'Price', 'Quantity', 'Minimum']
+sub14=>subroutine: print('Welcome to this very badly made invenvory system.')
+op16=>operation: inventory = init(first_column)
+op18=>operation: current_user_type = user_authentication()
+cond21=>condition: if (current_user_type == 'admin')
+sub25=>subroutine: admin_user_interface(inventory)
+e52=>end: end main
+st56=>start: start user_authentication
+io58=>inputoutput: input: 
+op61=>operation: userdata = read_csv_as_list('userdata.txt')
+cond64=>condition: if (not any(((user[2] == 'admin') for user in userdata)))
+sub68=>subroutine: print('No admin account detected. Please create an admin account.')
+sub70=>subroutine: add_new_user(admin_only=True)
+cond76=>condition: while True
+op125=>operation: username = input_str('\nEnter username: ')
+sub127=>subroutine: print("(for your security, password input isn't displayed)")
+op129=>operation: password = getpass('Enter password: ')
+cond132=>condition: for user in userdata
+cond152=>condition: if ((user[0] == username) and (user[1] == password))
+io159=>inputoutput: output:  user[2]
+e157=>end: end function return
+sub167=>subroutine: print('Incorrect username or password. Please try again.')
+e171=>end: end user_authentication
+st175=>start: start add_new_user
+io177=>inputoutput: input: admin_only
+cond181=>condition: if admin_only
+op185=>operation: user_type = 'admin'
+op282=>operation: username = input_str('Enter username for the new user: ')
+op284=>operation: password = input_str('Enter password for the new user: ')
+op286=>operation: password_comfirmation = input_str('Enter password again: ')
+cond289=>condition: if (password == password_comfirmation)
+op293=>operation: userdata = read_csv_as_list('userdata.txt')
+cond296=>condition: for user in userdata
+cond316=>condition: if (username in user[0])
+sub320=>subroutine: print('Username is already used.')
+e323=>end: end function return
+sub331=>subroutine: userdata.append([username, password, user_type])
+sub333=>subroutine: write_list_to_csv('userdata.txt', userdata)
+e340=>end: end add_new_user
+st344=>start: start admin_user_interface
+io346=>inputoutput: input: inventory
+cond350=>condition: while True
+sub520=>subroutine: print('\nPlease input a number from the list to choose an operation.\n    1 = take stock\n    2 = replinish stock\n    3 = view replenish list\n    4 = insert item\n    5 = update item\n    6 = delete item\n    7 = search item\n    8 = list all items\n    9 = exit without saving changes\n    0 = exit, saving changes\n    10 = add new user account')
+op522=>operation: user_input = input_int('Please select a command: ')
+cond525=>condition: if (user_input == 1)
+sub529=>subroutine: take_stock(inventory)
+sub683=>subroutine: print()
+cond534=>condition: if (user_input == 2)
+sub538=>subroutine: stock_replenish(inventory)
+cond543=>condition: if (user_input == 3)
+sub547=>subroutine: view_replenish_list(inventory)
+cond552=>condition: if (user_input == 4)
+sub556=>subroutine: insert_item(inventory)
+cond561=>condition: if (user_input == 5)
+sub565=>subroutine: update_item(inventory)
+cond570=>condition: if (user_input == 6)
+sub574=>subroutine: delete_item(inventory)
+cond579=>condition: if (user_input == 7)
+sub583=>subroutine: search_items(inventory)
+cond588=>condition: if (user_input == 8)
+sub592=>subroutine: list_all_items(inventory)
+cond597=>condition: if (user_input == 9)
+op601=>operation: user_input = input('are you sure you want to exit WITHOUT SAVING? [y/n]: ')
+cond604=>operation: break if  (user_input.lower() == 'y')
+cond615=>condition: if (user_input.lower() == 'n')
+sub619=>subroutine: print('...')
+sub623=>subroutine: print('please answer in y or n')
+cond629=>condition: if (user_input == 0)
+op633=>operation: user_input = input('are you sure you want to exit WHILE SAVING ALL THE CHANGES YOU MADE? [y/n]: ')
+cond636=>condition: if (user_input.lower() == 'y')
+sub640=>subroutine: write_list_to_csv('inventory.txt', inventory)
+sub642=>subroutine: break
+cond648=>condition: if (user_input.lower() == 'n')
+sub652=>subroutine: print('...')
+sub656=>subroutine: print('please answer in y or n')
+cond662=>condition: if (user_input == 10)
+sub666=>subroutine: add_new_user()
+sub670=>subroutine: print('Invalid input.')
+e687=>end: end admin_user_interface
+st691=>start: start inventory_checker_user_interface
+io693=>inputoutput: input: inventory
+cond697=>condition: while True
+sub807=>subroutine: print('\nPlease input a number from the list to choose an operation.\n    1 = take stock\n    2 = search item\n    3 = list all items\n    9 = exit without saving changes\n    0 = exit, saving changes')
+op809=>operation: user_input = input_int('Please select a command: ')
+cond812=>condition: if (user_input == 1)
+sub816=>subroutine: take_stock(inventory)
+sub910=>subroutine: print()
+cond821=>condition: if (user_input == 2)
+sub825=>subroutine: search_items(inventory)
+cond830=>condition: if (user_input == 3)
+sub834=>subroutine: list_all_items(inventory)
+cond839=>condition: if (user_input == 9)
+op843=>operation: user_input = input('are you sure you want to exit WITHOUT SAVING? [y/n]: ')
+cond846=>operation: break if  (user_input.lower() == 'y')
+cond857=>condition: if (user_input.lower() == 'n')
+sub861=>subroutine: print('...')
+sub865=>subroutine: print('please answer in y or n')
+cond871=>condition: if (user_input == 0)
+op875=>operation: user_input = input('are you sure you want to exit WHILE SAVING ALL THE CHANGES YOU MADE? [y/n]: ')
+cond878=>condition: if (user_input.lower() == 'y')
+sub882=>subroutine: write_list_to_csv('inventory.txt', inventory)
+sub884=>subroutine: break
+cond890=>condition: if (user_input.lower() == 'n')
+sub894=>subroutine: print('...')
+sub898=>subroutine: print('please answer in y or n')
+sub903=>subroutine: print('Invalid input.')
+e914=>end: end inventory_checker_user_interface
+st918=>start: start purchaser_user_interface
+io920=>inputoutput: input: inventory
+cond924=>condition: while True
+sub1046=>subroutine: print('\nPlease input a number from the list to choose an operation.\n    1 = replinish stock\n    2 = view replenish list\n    3 = search item\n    4 = list all items\n    9 = exit without saving changes\n    0 = exit, saving changes')
+op1048=>operation: user_input = input_int('Please select a command: ')
+sub1050=>subroutine: print(user_input)
+cond1053=>condition: if (user_input == 1)
+sub1057=>subroutine: stock_replenish(inventory)
+sub1161=>subroutine: print()
+cond1062=>condition: if (user_input == 2)
+sub1066=>subroutine: view_replenish_list(inventory)
+cond1071=>condition: if (user_input == 3)
+sub1075=>subroutine: search_items(inventory)
+cond1080=>condition: if (user_input == 4)
+sub1084=>subroutine: list_all_items(inventory)
+cond1089=>condition: if (user_input == 9)
+op1093=>operation: user_input = input('are you sure you want to exit WITHOUT SAVING? [y/n]: ')
+cond1096=>operation: break if  (user_input.lower() == 'y')
+cond1107=>condition: if (user_input.lower() == 'n')
+sub1111=>subroutine: print('...')
+sub1115=>subroutine: print('please answer in y or n')
+cond1121=>condition: if (user_input == 0)
+op1125=>operation: user_input = input('are you sure you want to exit WHILE SAVING ALL THE CHANGES YOU MADE? [y/n]: ')
+cond1128=>condition: if (user_input.lower() == 'y')
+sub1132=>subroutine: write_list_to_csv('inventory.txt', inventory)
+sub1134=>subroutine: break
+cond1140=>condition: if (user_input.lower() == 'n')
+sub1144=>subroutine: print('...')
+sub1148=>subroutine: print('please answer in y or n')
+sub1153=>subroutine: print('Invalid input.')
+e1165=>end: end purchaser_user_interface
+st1169=>start: start init
+io1171=>inputoutput: input: first_column
+cond1175=>condition: if (not os.path.exists('userdata.txt'))
+sub1179=>subroutine: open('userdata.txt', 'x')
+sub1181=>subroutine: print('userdata.txt created. Please create an admin account.')
+sub1183=>subroutine: add_new_user(admin_only=True)
+cond1189=>condition: if (not os.path.exists('inventory.txt'))
+sub1193=>subroutine: open('inventory.txt', 'x')
+sub1195=>subroutine: print('inventory.txt created.')
+sub1197=>subroutine: write_list_to_csv('inventory.txt', [first_column])
+io1205=>inputoutput: output:  read_csv_as_list('inventory.txt')
+e1203=>end: end function return
+sub337=>subroutine: print("Passwords don't match. Please try again.")
+cond190=>condition: while True
+sub237=>subroutine: print('\nPlease select a user type from the list.\n    1 = admin\n    2 = inventory-checker\n    3 = purchaser\n        ')
+op239=>operation: user_type_choice = input_int('Please select a user type: ')
+cond242=>condition: if (user_type_choice == 1)
+op246=>operation: user_type = 'admin'
+sub248=>subroutine: break
+cond253=>condition: if (user_type_choice == 2)
+op257=>operation: user_type = 'inventory-checker'
+sub259=>subroutine: break
+cond264=>condition: if (user_type_choice == 3)
+op268=>operation: user_type = 'purchaser'
+sub270=>subroutine: break
+sub274=>subroutine: print('Invalid choice, please try again.\n')
+cond30=>condition: if (current_user_type == 'inventory-checker')
+sub34=>subroutine: inventory_checker_user_interface(inventory)
+cond39=>condition: if (current_user_type == 'purchaser')
+sub43=>subroutine: purchaser_user_interface(inventory)
+sub47=>subroutine: print('Invalid user type. Exiting...')
+
+op2->op4
+op4->st7
+st7->io9
+io9->op12
+op12->sub14
+sub14->op16
+op16->op18
+op18->cond21
+cond21(yes)->sub25
+sub25->e52
+e52->st56
+st56->io58
+io58->op61
+op61->cond64
+cond64(yes)->sub68
+sub68->sub70
+sub70->cond76
+cond76(yes)->op125
+op125->sub127
+sub127->op129
+op129->cond132
+cond132(yes)->cond152
+cond152(yes)->io159
+io159->e157
+cond152(no)->cond132
+cond132(no)->sub167
+sub167(left)->cond76
+cond76(no)->e171
+e171->st175
+st175->io177
+io177->cond181
+cond181(yes)->op185
+op185->op282
+op282->op284
+op284->op286
+op286->cond289
+cond289(yes)->op293
+op293->cond296
+cond296(yes)->cond316
+cond316(yes)->sub320
+sub320->e323
+cond316(no)->cond296
+cond296(no)->sub331
+sub331->sub333
+sub333->e340
+e340->st344
+st344->io346
+io346->cond350
+cond350(yes)->sub520
+sub520->op522
+op522->cond525
+cond525(yes)->sub529
+sub529->sub683
+sub683(left)->cond350
+cond525(no)->cond534
+cond534(yes)->sub538
+sub538->sub683
+cond534(no)->cond543
+cond543(yes)->sub547
+sub547->sub683
+cond543(no)->cond552
+cond552(yes)->sub556
+sub556->sub683
+cond552(no)->cond561
+cond561(yes)->sub565
+sub565->sub683
+cond561(no)->cond570
+cond570(yes)->sub574
+sub574->sub683
+cond570(no)->cond579
+cond579(yes)->sub583
+sub583->sub683
+cond579(no)->cond588
+cond588(yes)->sub592
+sub592->sub683
+cond588(no)->cond597
+cond597(yes)->op601
+op601->cond604
+cond604->cond615
+cond615(yes)->sub619
+sub619->sub683
+cond615(no)->sub623
+sub623->sub683
+cond597(no)->cond629
+cond629(yes)->op633
+op633->cond636
+cond636(yes)->sub640
+sub640->sub642
+cond636(no)->cond648
+cond648(yes)->sub652
+sub652->sub683
+cond648(no)->sub656
+sub656->sub683
+cond629(no)->cond662
+cond662(yes)->sub666
+sub666->sub683
+cond662(no)->sub670
+sub670->sub683
+cond350(no)->e687
+e687->st691
+st691->io693
+io693->cond697
+cond697(yes)->sub807
+sub807->op809
+op809->cond812
+cond812(yes)->sub816
+sub816->sub910
+sub910(left)->cond697
+cond812(no)->cond821
+cond821(yes)->sub825
+sub825->sub910
+cond821(no)->cond830
+cond830(yes)->sub834
+sub834->sub910
+cond830(no)->cond839
+cond839(yes)->op843
+op843->cond846
+cond846->cond857
+cond857(yes)->sub861
+sub861->sub910
+cond857(no)->sub865
+sub865->sub910
+cond839(no)->cond871
+cond871(yes)->op875
+op875->cond878
+cond878(yes)->sub882
+sub882->sub884
+cond878(no)->cond890
+cond890(yes)->sub894
+sub894->sub910
+cond890(no)->sub898
+sub898->sub910
+cond871(no)->sub903
+sub903->sub910
+cond697(no)->e914
+e914->st918
+st918->io920
+io920->cond924
+cond924(yes)->sub1046
+sub1046->op1048
+op1048->sub1050
+sub1050->cond1053
+cond1053(yes)->sub1057
+sub1057->sub1161
+sub1161(left)->cond924
+cond1053(no)->cond1062
+cond1062(yes)->sub1066
+sub1066->sub1161
+cond1062(no)->cond1071
+cond1071(yes)->sub1075
+sub1075->sub1161
+cond1071(no)->cond1080
+cond1080(yes)->sub1084
+sub1084->sub1161
+cond1080(no)->cond1089
+cond1089(yes)->op1093
+op1093->cond1096
+cond1096->cond1107
+cond1107(yes)->sub1111
+sub1111->sub1161
+cond1107(no)->sub1115
+sub1115->sub1161
+cond1089(no)->cond1121
+cond1121(yes)->op1125
+op1125->cond1128
+cond1128(yes)->sub1132
+sub1132->sub1134
+cond1128(no)->cond1140
+cond1140(yes)->sub1144
+sub1144->sub1161
+cond1140(no)->sub1148
+sub1148->sub1161
+cond1121(no)->sub1153
+sub1153->sub1161
+cond924(no)->e1165
+e1165->st1169
+st1169->io1171
+io1171->cond1175
+cond1175(yes)->sub1179
+sub1179->sub1181
+sub1181->sub1183
+sub1183->cond1189
+cond1189(yes)->sub1193
+sub1193->sub1195
+sub1195->sub1197
+sub1197->io1205
+io1205->e1203
+cond1189(no)->io1205
+cond1175(no)->cond1189
+cond289(no)->sub337
+sub337->e340
+cond181(no)->cond190
+cond190(yes)->sub237
+sub237->op239
+op239->cond242
+cond242(yes)->op246
+op246->sub248
+cond242(no)->cond253
+cond253(yes)->op257
+op257->sub259
+cond253(no)->cond264
+cond264(yes)->op268
+op268->sub270
+cond264(no)->sub274
+sub274->cond190
+cond190(no)->op282
+cond64(no)->cond76
+cond21(no)->cond30
+cond30(yes)->sub34
+sub34->e52
+cond30(no)->cond39
+cond39(yes)->sub43
+sub43->e52
+cond39(no)->sub47
+sub47->e52
+

@@ -1,0 +1,22 @@
+st3=>start: start write_list_to_csv
+io5=>inputoutput: input: filename, data
+op8=>operation: out = ''
+cond11=>condition: for row in data
+op20=>operation: row_str = map(str, row)
+op22=>operation: out += (','.join(row_str) + '\n')
+op26=>operation: raw_file = open(filename, 'w')
+sub28=>subroutine: raw_file.write(out)
+sub30=>subroutine: raw_file.close()
+e32=>end: end write_list_to_csv
+
+st3->io5
+io5->op8
+op8->cond11
+cond11(yes)->op20
+op20->op22
+op22(left)->cond11
+cond11(no)->op26
+op26->sub28
+sub28->sub30
+sub30->e32
+

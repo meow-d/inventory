@@ -1,0 +1,36 @@
+st3=>start: start user_authentication
+io5=>inputoutput: input: 
+op8=>operation: userdata = read_csv_as_list('userdata.txt')
+cond11=>condition: if (not any(((user[2] == 'admin') for user in userdata)))
+sub15=>subroutine: print('No admin account detected. Please create an admin account.')
+sub17=>subroutine: add_new_user(admin_only=True)
+cond23=>condition: while True
+op72=>operation: username = input_str('\nEnter username: ')
+sub74=>subroutine: print("(for your security, password input isn't displayed)")
+op76=>operation: password = getpass('Enter password: ')
+cond79=>condition: for user in userdata
+cond99=>condition: if ((user[0] == username) and (user[1] == password))
+io106=>inputoutput: output:  user[2]
+e104=>end: end function return
+sub114=>subroutine: print('Incorrect username or password. Please try again.')
+e118=>end: end user_authentication
+
+st3->io5
+io5->op8
+op8->cond11
+cond11(yes)->sub15
+sub15->sub17
+sub17->cond23
+cond23(yes)->op72
+op72->sub74
+sub74->op76
+op76->cond79
+cond79(yes)->cond99
+cond99(yes)->io106
+io106->e104
+cond99(no)->cond79
+cond79(no)->sub114
+sub114(left)->cond23
+cond23(no)->e118
+cond11(no)->cond23
+

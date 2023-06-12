@@ -1,0 +1,11 @@
+st3=>start: start print_separator
+io5=>inputoutput: input: column_lengths
+cond9=>operation: print('|', ('-' * length), end=' ') while  length in column_lengths
+sub21=>subroutine: print('|')
+e23=>end: end print_separator
+
+st3->io5
+io5->cond9
+cond9->sub21
+sub21->e23
+

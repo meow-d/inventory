@@ -1,0 +1,26 @@
+st3=>start: start input_bool
+io5=>inputoutput: input: question
+cond9=>condition: while True
+op46=>operation: user_input = input(question).strip()
+cond49=>condition: if (user_input.lower() == 'y')
+io56=>inputoutput: output:  True
+e54=>end: end function return
+cond62=>condition: if (user_input.lower() == 'n')
+io69=>inputoutput: output:  False
+e67=>end: end function return
+sub74=>subroutine: print('Please answer in y or n. ', end='')
+e80=>end: end input_bool
+
+st3->io5
+io5->cond9
+cond9(yes)->op46
+op46->cond49
+cond49(yes)->io56
+io56->e54
+cond49(no)->cond62
+cond62(yes)->io69
+io69->e67
+cond62(no)->sub74
+sub74->cond9
+cond9(no)->e80
+

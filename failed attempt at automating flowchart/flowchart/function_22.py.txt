@@ -1,0 +1,50 @@
+st3=>start: start delete_item
+io5=>inputoutput: input: data
+op8=>operation: delete_by_item_code = input_bool("Do you want to delete by item code? if not, you'll have to enter the row number [y/n]: ")
+cond11=>condition: if delete_by_item_code
+op15=>operation: item_deleted = False
+op17=>operation: code = input_str('Enter item code to delete: ')
+op19=>operation: deletion_comfirmed = input_bool(f'Are you sure you want to delete item {code}? [y/n]: ')
+cond22=>condition: if deletion_comfirmed
+cond27=>condition: for item in data
+cond47=>condition: if (item[0] == code)
+sub51=>subroutine: data.remove(item)
+op53=>operation: item_deleted = True
+sub55=>subroutine: break
+cond63=>condition: if item_deleted
+sub67=>subroutine: print(f'Item with code {code} has been deleted.')
+e96=>end: end delete_item
+sub71=>subroutine: print('Item not found.')
+op79=>operation: row_number = input_row_number(data, 'Enter row number to delete: ')
+op81=>operation: deletion_comfirmed = input_bool(f'Are you sure you want to delete row {row_number}? [y/n]: ')
+cond84=>condition: if deletion_comfirmed
+sub88=>subroutine: data.remove(item[row_number])
+sub90=>subroutine: print(f'Item with code {row_number} has been deleted.')
+
+st3->io5
+io5->op8
+op8->cond11
+cond11(yes)->op15
+op15->op17
+op17->op19
+op19->cond22
+cond22(yes)->cond27
+cond27(yes)->cond47
+cond47(yes)->sub51
+sub51->op53
+op53->sub55
+cond47(no)->cond27
+cond27(no)->cond63
+cond63(yes)->sub67
+sub67->e96
+cond63(no)->sub71
+sub71->e96
+cond22(no)->e96
+cond11(no)->op79
+op79->op81
+op81->cond84
+cond84(yes)->sub88
+sub88->sub90
+sub90->e96
+cond84(no)->e96
+

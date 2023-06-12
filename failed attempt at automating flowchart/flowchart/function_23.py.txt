@@ -1,0 +1,120 @@
+st3=>start: start search_items
+io5=>inputoutput: input: data
+op8=>operation: user_input = input_int('Search items by:\n    1 = Description\n    2 = Code range\n    3 = Category\n    4 = Price range\n    5 = Row number range\nEnter choice: ')
+cond11=>condition: if (user_input == '1')
+op15=>operation: description = input('Enter item description: ')
+op17=>operation: found_items = []
+cond20=>condition: for item in data
+cond37=>operation: found_items.append(item) if  (description.lower() in item[2].lower())
+cond50=>condition: if found_items
+sub54=>subroutine: print('Found items:')
+sub56=>subroutine: print_table(data, found_items)
+e285=>end: end search_items
+sub60=>subroutine: print('No items found.')
+cond66=>condition: if (user_input == '2')
+op70=>operation: range_min = input_int('Enter minimum code range: ')
+op72=>operation: range_max = input_int('Enter maximum code range: ')
+op74=>operation: found_items = []
+cond77=>condition: for item in data
+cond94=>operation: found_items.append(item) if  (int(range_min) <= int(item[1]) <= int(range_max))
+cond107=>condition: if found_items
+sub111=>subroutine: print('Found items:')
+sub113=>subroutine: print_table(data, found_items)
+sub117=>subroutine: print('No items found.')
+cond123=>condition: if (user_input == '3')
+op127=>operation: category = input('Enter category: ')
+op129=>operation: found_items = []
+cond132=>condition: for item in data
+cond149=>operation: found_items.append(item) if  (category.lower() == item['category'].lower())
+cond162=>condition: if found_items
+sub166=>subroutine: print('Found items:')
+sub168=>subroutine: print_table(data, found_items)
+sub172=>subroutine: print('No items found.')
+cond178=>condition: if (user_input == '4')
+op182=>operation: price_min = input_float('Enter minimum price: ')
+op184=>operation: price_max = input_float('Enter maximum price: ')
+op186=>operation: found_items = []
+cond189=>condition: for item in data
+cond206=>operation: found_items.append(item) if  (price_min <= item['price'] <= price_max)
+cond219=>condition: if found_items
+sub223=>subroutine: print('Found items:')
+sub225=>subroutine: print_table(data, found_items)
+sub229=>subroutine: print('No items found.')
+cond235=>condition: if (user_input == '5')
+op239=>operation: range_min = input_int('Enter minimum row number range: ')
+op241=>operation: range_max = input_int('Enter maximum row number range: ')
+op243=>operation: found_items = []
+cond246=>operation: found_items.append(item) while  item in data[range_min:range_max]
+cond259=>condition: if found_items
+sub263=>subroutine: print('Found items:')
+sub265=>subroutine: print_table(data, found_items)
+sub269=>subroutine: print('No items found.')
+sub274=>subroutine: print('Please insert a number from 1 to 4', end='')
+e277=>end: end function return
+
+st3->io5
+io5->op8
+op8->cond11
+cond11(yes)->op15
+op15->op17
+op17->cond20
+cond20(yes)->cond37
+cond37->cond20
+cond20(no)->cond50
+cond50(yes)->sub54
+sub54->sub56
+sub56->e285
+cond50(no)->sub60
+sub60->e285
+cond11(no)->cond66
+cond66(yes)->op70
+op70->op72
+op72->op74
+op74->cond77
+cond77(yes)->cond94
+cond94->cond77
+cond77(no)->cond107
+cond107(yes)->sub111
+sub111->sub113
+sub113->e285
+cond107(no)->sub117
+sub117->e285
+cond66(no)->cond123
+cond123(yes)->op127
+op127->op129
+op129->cond132
+cond132(yes)->cond149
+cond149->cond132
+cond132(no)->cond162
+cond162(yes)->sub166
+sub166->sub168
+sub168->e285
+cond162(no)->sub172
+sub172->e285
+cond123(no)->cond178
+cond178(yes)->op182
+op182->op184
+op184->op186
+op186->cond189
+cond189(yes)->cond206
+cond206->cond189
+cond189(no)->cond219
+cond219(yes)->sub223
+sub223->sub225
+sub225->e285
+cond219(no)->sub229
+sub229->e285
+cond178(no)->cond235
+cond235(yes)->op239
+op239->op241
+op241->op243
+op243->cond246
+cond246->cond259
+cond259(yes)->sub263
+sub263->sub265
+sub265->e285
+cond259(no)->sub269
+sub269->e285
+cond235(no)->sub274
+sub274->e277
+

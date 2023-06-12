@@ -1,0 +1,11 @@
+st3=>start: start print_row
+io5=>inputoutput: input: row, column_lengths
+cond9=>operation: print('|', str(value).ljust(column_lengths[col]), end=' ') while  (col, value) in enumerate(row)
+sub21=>subroutine: print('|')
+e23=>end: end print_row
+
+st3->io5
+io5->cond9
+cond9->sub21
+sub21->e23
+

@@ -1,0 +1,18 @@
+st3=>start: start list_all_items
+io5=>inputoutput: input: data
+cond9=>condition: if (len(data) > 10)
+op13=>operation: user_input = input_bool('The list can get very long, are you sure?')
+cond16=>operation: print_table(data, data[1:]) if  user_input
+e31=>end: end list_all_items
+cond35=>operation: main() if  (__name__ == '__main__')
+sub28=>subroutine: print_table(data, data[1:])
+
+st3->io5
+io5->cond9
+cond9(yes)->op13
+op13->cond16
+cond16->e31
+e31->cond35
+cond9(no)->sub28
+sub28->e31
+

@@ -1,0 +1,95 @@
+st3=>start: start admin_user_interface
+io5=>inputoutput: input: inventory
+cond9=>condition: while True
+sub179=>subroutine: print('\nPlease input a number from the list to choose an operation.\n    1 = take stock\n    2 = replinish stock\n    3 = view replenish list\n    4 = insert item\n    5 = update item\n    6 = delete item\n    7 = search item\n    8 = list all items\n    9 = exit without saving changes\n    0 = exit, saving changes\n    10 = add new user account')
+op181=>operation: user_input = input_int('Please select a command: ')
+cond184=>condition: if (user_input == 1)
+sub188=>subroutine: take_stock(inventory)
+sub342=>subroutine: print()
+cond193=>condition: if (user_input == 2)
+sub197=>subroutine: stock_replenish(inventory)
+cond202=>condition: if (user_input == 3)
+sub206=>subroutine: view_replenish_list(inventory)
+cond211=>condition: if (user_input == 4)
+sub215=>subroutine: insert_item(inventory)
+cond220=>condition: if (user_input == 5)
+sub224=>subroutine: update_item(inventory)
+cond229=>condition: if (user_input == 6)
+sub233=>subroutine: delete_item(inventory)
+cond238=>condition: if (user_input == 7)
+sub242=>subroutine: search_items(inventory)
+cond247=>condition: if (user_input == 8)
+sub251=>subroutine: list_all_items(inventory)
+cond256=>condition: if (user_input == 9)
+op260=>operation: user_input = input('are you sure you want to exit WITHOUT SAVING? [y/n]: ')
+cond263=>operation: break if  (user_input.lower() == 'y')
+cond274=>condition: if (user_input.lower() == 'n')
+sub278=>subroutine: print('...')
+sub282=>subroutine: print('please answer in y or n')
+cond288=>condition: if (user_input == 0)
+op292=>operation: user_input = input('are you sure you want to exit WHILE SAVING ALL THE CHANGES YOU MADE? [y/n]: ')
+cond295=>condition: if (user_input.lower() == 'y')
+sub299=>subroutine: write_list_to_csv('inventory.txt', inventory)
+sub301=>subroutine: break
+cond307=>condition: if (user_input.lower() == 'n')
+sub311=>subroutine: print('...')
+sub315=>subroutine: print('please answer in y or n')
+cond321=>condition: if (user_input == 10)
+sub325=>subroutine: add_new_user()
+sub329=>subroutine: print('Invalid input.')
+e346=>end: end admin_user_interface
+
+st3->io5
+io5->cond9
+cond9(yes)->sub179
+sub179->op181
+op181->cond184
+cond184(yes)->sub188
+sub188->sub342
+sub342(left)->cond9
+cond184(no)->cond193
+cond193(yes)->sub197
+sub197->sub342
+cond193(no)->cond202
+cond202(yes)->sub206
+sub206->sub342
+cond202(no)->cond211
+cond211(yes)->sub215
+sub215->sub342
+cond211(no)->cond220
+cond220(yes)->sub224
+sub224->sub342
+cond220(no)->cond229
+cond229(yes)->sub233
+sub233->sub342
+cond229(no)->cond238
+cond238(yes)->sub242
+sub242->sub342
+cond238(no)->cond247
+cond247(yes)->sub251
+sub251->sub342
+cond247(no)->cond256
+cond256(yes)->op260
+op260->cond263
+cond263->cond274
+cond274(yes)->sub278
+sub278->sub342
+cond274(no)->sub282
+sub282->sub342
+cond256(no)->cond288
+cond288(yes)->op292
+op292->cond295
+cond295(yes)->sub299
+sub299->sub301
+cond295(no)->cond307
+cond307(yes)->sub311
+sub311->sub342
+cond307(no)->sub315
+sub315->sub342
+cond288(no)->cond321
+cond321(yes)->sub325
+sub325->sub342
+cond321(no)->sub329
+sub329->sub342
+cond9(no)->e346
+

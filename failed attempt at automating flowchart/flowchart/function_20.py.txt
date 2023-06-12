@@ -1,0 +1,35 @@
+st3=>start: start insert_item
+io5=>inputoutput: input: data
+op8=>operation: amount_to_insert = input_int('How many items do you want to add?: ')
+cond11=>condition: while (amount_to_insert != 0)
+sub76=>subroutine: data.append([])
+cond79=>condition: for column_name in data[0]
+cond109=>condition: if (column_name == 'Price')
+op113=>operation: user_input = input_float(f'Please insert new data for {column_name}: ')
+sub130=>subroutine: data[(- 1)].append(user_input)
+cond118=>condition: if (column_name in ['Quantity', 'Minimum', 'Code'])
+op122=>operation: user_input = input_int(f'Please insert new data for {column_name}: ')
+op126=>operation: user_input = input_str(f'Please insert new data for {column_name}: ')
+op134=>operation: amount_to_insert -= 1
+sub138=>subroutine: print(f'{amount_to_insert} items added successfully.')
+e140=>end: end insert_item
+
+st3->io5
+io5->op8
+op8->cond11
+cond11(yes)->sub76
+sub76->cond79
+cond79(yes)->cond109
+cond109(yes)->op113
+op113->sub130
+sub130(left)->cond79
+cond109(no)->cond118
+cond118(yes)->op122
+op122->sub130
+cond118(no)->op126
+op126->sub130
+cond79(no)->op134
+op134(left)->cond11
+cond11(no)->sub138
+sub138->e140
+

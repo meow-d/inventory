@@ -1,0 +1,27 @@
+st3=>start: start init
+io5=>inputoutput: input: first_column
+cond9=>condition: if (not os.path.exists('userdata.txt'))
+sub13=>subroutine: open('userdata.txt', 'x')
+sub15=>subroutine: print('userdata.txt created. Please create an admin account.')
+sub17=>subroutine: add_new_user(admin_only=True)
+cond23=>condition: if (not os.path.exists('inventory.txt'))
+sub27=>subroutine: open('inventory.txt', 'x')
+sub29=>subroutine: print('inventory.txt created.')
+sub31=>subroutine: write_list_to_csv('inventory.txt', [first_column])
+io39=>inputoutput: output:  read_csv_as_list('inventory.txt')
+e37=>end: end function return
+
+st3->io5
+io5->cond9
+cond9(yes)->sub13
+sub13->sub15
+sub15->sub17
+sub17->cond23
+cond23(yes)->sub27
+sub27->sub29
+sub29->sub31
+sub31->io39
+io39->e37
+cond23(no)->io39
+cond9(no)->cond23
+

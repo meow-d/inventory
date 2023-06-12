@@ -1,0 +1,30 @@
+st3=>start: start take_stock
+io5=>inputoutput: input: data
+cond9=>condition: if (len(data) == 1)
+sub13=>subroutine: print('There are no items in the database.')
+e46=>end: end take_stock
+op17=>operation: item_row = input_row_number(data, 'Which row of item do you want to update?: ')
+cond20=>condition: if (item_row == 0)
+sub24=>subroutine: print('Please input a number above 0')
+cond29=>condition: if (item_row > len(data))
+sub33=>subroutine: print('Row does not exist')
+sub37=>subroutine: print(f'Current stock of {data[item_row][2]} is {data[item_row][5]}.')
+op39=>operation: user_input = input_int(f'Please insert new stock quantity, or leave blank to not modify data: ')
+op41=>operation: data[item_row][5] = user_input
+
+st3->io5
+io5->cond9
+cond9(yes)->sub13
+sub13->e46
+cond9(no)->op17
+op17->cond20
+cond20(yes)->sub24
+sub24->e46
+cond20(no)->cond29
+cond29(yes)->sub33
+sub33->e46
+cond29(no)->sub37
+sub37->op39
+op39->op41
+op41->e46
+

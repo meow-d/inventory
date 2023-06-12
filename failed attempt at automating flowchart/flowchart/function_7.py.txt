@@ -1,0 +1,18 @@
+st3=>start: start read_csv_as_list
+io5=>inputoutput: input: filename
+op8=>operation: with open(filename, 'r') as f:
+    file_text = f.read()
+    f.close()
+    list_of_lines = file_text.split('\n')
+    inventory = []
+    for line in list_of_lines:
+        if (not (line == '')):
+            inventory.append(line.split(','))
+io13=>inputoutput: output:  inventory
+e11=>end: end function return
+
+st3->io5
+io5->op8
+op8->io13
+io13->e11
+

@@ -1,0 +1,35 @@
+st3=>start: start update_item
+io5=>inputoutput: input: data
+cond9=>condition: if (len(data) == 1)
+sub13=>subroutine: print('There are no items in the database.')
+e98=>end: end update_item
+op17=>operation: item_id = input_row_number(data, 'Which row do you want to update?: ')
+sub19=>subroutine: print('Leave blank to not override data')
+cond22=>condition: for (column_number, (column_name, column_value)) in enumerate(zip(data[0], data[item_id]))
+cond61=>condition: if (column_name == 'Price')
+op65=>operation: user_input = input_float(f'Please insert new data for {column_name} ({column_value}): ')
+cond83=>operation: data[item_id][column_number] = user_input if  (user_input != '')
+cond70=>condition: if (column_name in ['Quantity', 'Minimum', 'Code'])
+op74=>operation: user_input = input_int(f'Please insert new data for {column_name} ({column_value}): ')
+op78=>operation: user_input = input_str(f'Please insert new data for {column_name} ({column_value}): ')
+sub95=>subroutine: print('Data has been updated succesfully')
+
+st3->io5
+io5->cond9
+cond9(yes)->sub13
+sub13->e98
+cond9(no)->op17
+op17->sub19
+sub19->cond22
+cond22(yes)->cond61
+cond61(yes)->op65
+op65->cond83
+cond83->cond22
+cond61(no)->cond70
+cond70(yes)->op74
+op74->cond83
+cond70(no)->op78
+op78->cond83
+cond22(no)->sub95
+sub95->e98
+

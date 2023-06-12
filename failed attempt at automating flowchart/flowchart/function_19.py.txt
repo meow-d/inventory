@@ -1,0 +1,23 @@
+st3=>start: start view_replenish_list
+io5=>inputoutput: input: data
+op8=>operation: replenish_list = []
+cond11=>condition: for item in data
+cond28=>operation: replenish_list.append(item) if  (item[5] < item[6])
+cond41=>condition: if (len(replenish_list) > 0)
+sub45=>subroutine: print('Replenish list:')
+sub47=>subroutine: print_table(data, replenish_list)
+e54=>end: end view_replenish_list
+sub51=>subroutine: print('No items require replenishment.')
+
+st3->io5
+io5->op8
+op8->cond11
+cond11(yes)->cond28
+cond28->cond11
+cond11(no)->cond41
+cond41(yes)->sub45
+sub45->sub47
+sub47->e54
+cond41(no)->sub51
+sub51->e54
+

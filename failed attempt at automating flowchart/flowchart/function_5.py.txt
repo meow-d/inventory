@@ -1,0 +1,72 @@
+st3=>start: start purchaser_user_interface
+io5=>inputoutput: input: inventory
+cond9=>condition: while True
+sub131=>subroutine: print('\nPlease input a number from the list to choose an operation.\n    1 = replinish stock\n    2 = view replenish list\n    3 = search item\n    4 = list all items\n    9 = exit without saving changes\n    0 = exit, saving changes')
+op133=>operation: user_input = input_int('Please select a command: ')
+sub135=>subroutine: print(user_input)
+cond138=>condition: if (user_input == 1)
+sub142=>subroutine: stock_replenish(inventory)
+sub246=>subroutine: print()
+cond147=>condition: if (user_input == 2)
+sub151=>subroutine: view_replenish_list(inventory)
+cond156=>condition: if (user_input == 3)
+sub160=>subroutine: search_items(inventory)
+cond165=>condition: if (user_input == 4)
+sub169=>subroutine: list_all_items(inventory)
+cond174=>condition: if (user_input == 9)
+op178=>operation: user_input = input('are you sure you want to exit WITHOUT SAVING? [y/n]: ')
+cond181=>operation: break if  (user_input.lower() == 'y')
+cond192=>condition: if (user_input.lower() == 'n')
+sub196=>subroutine: print('...')
+sub200=>subroutine: print('please answer in y or n')
+cond206=>condition: if (user_input == 0)
+op210=>operation: user_input = input('are you sure you want to exit WHILE SAVING ALL THE CHANGES YOU MADE? [y/n]: ')
+cond213=>condition: if (user_input.lower() == 'y')
+sub217=>subroutine: write_list_to_csv('inventory.txt', inventory)
+sub219=>subroutine: break
+cond225=>condition: if (user_input.lower() == 'n')
+sub229=>subroutine: print('...')
+sub233=>subroutine: print('please answer in y or n')
+sub238=>subroutine: print('Invalid input.')
+e250=>end: end purchaser_user_interface
+
+st3->io5
+io5->cond9
+cond9(yes)->sub131
+sub131->op133
+op133->sub135
+sub135->cond138
+cond138(yes)->sub142
+sub142->sub246
+sub246(left)->cond9
+cond138(no)->cond147
+cond147(yes)->sub151
+sub151->sub246
+cond147(no)->cond156
+cond156(yes)->sub160
+sub160->sub246
+cond156(no)->cond165
+cond165(yes)->sub169
+sub169->sub246
+cond165(no)->cond174
+cond174(yes)->op178
+op178->cond181
+cond181->cond192
+cond192(yes)->sub196
+sub196->sub246
+cond192(no)->sub200
+sub200->sub246
+cond174(no)->cond206
+cond206(yes)->op210
+op210->cond213
+cond213(yes)->sub217
+sub217->sub219
+cond213(no)->cond225
+cond225(yes)->sub229
+sub229->sub246
+cond225(no)->sub233
+sub233->sub246
+cond206(no)->sub238
+sub238->sub246
+cond9(no)->e250
+

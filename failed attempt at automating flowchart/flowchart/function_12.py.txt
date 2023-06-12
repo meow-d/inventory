@@ -1,0 +1,19 @@
+st3=>start: start input_int
+io5=>inputoutput: input: question
+cond9=>condition: while True
+op18=>operation: user_input = input(question)
+op20=>operation: try:
+    user_input = int(user_input.strip())
+except:
+    print('Please input an integer. ', end='')
+else:
+    return user_input
+e24=>end: end input_int
+
+st3->io5
+io5->cond9
+cond9(yes)->op18
+op18->op20
+op20(left)->cond9
+cond9(no)->e24
+

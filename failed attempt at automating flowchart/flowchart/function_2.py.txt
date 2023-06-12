@@ -1,0 +1,65 @@
+st3=>start: start add_new_user
+io5=>inputoutput: input: admin_only
+cond9=>condition: if admin_only
+op13=>operation: user_type = 'admin'
+op110=>operation: username = input_str('Enter username for the new user: ')
+op112=>operation: password = input_str('Enter password for the new user: ')
+op114=>operation: password_comfirmation = input_str('Enter password again: ')
+cond117=>condition: if (password == password_comfirmation)
+op121=>operation: userdata = read_csv_as_list('userdata.txt')
+cond124=>condition: for user in userdata
+cond144=>condition: if (username in user[0])
+sub148=>subroutine: print('Username is already used.')
+e151=>end: end function return
+sub159=>subroutine: userdata.append([username, password, user_type])
+sub161=>subroutine: write_list_to_csv('userdata.txt', userdata)
+e168=>end: end add_new_user
+sub165=>subroutine: print("Passwords don't match. Please try again.")
+cond18=>condition: while True
+sub65=>subroutine: print('\nPlease select a user type from the list.\n    1 = admin\n    2 = inventory-checker\n    3 = purchaser\n        ')
+op67=>operation: user_type_choice = input_int('Please select a user type: ')
+cond70=>condition: if (user_type_choice == 1)
+op74=>operation: user_type = 'admin'
+sub76=>subroutine: break
+cond81=>condition: if (user_type_choice == 2)
+op85=>operation: user_type = 'inventory-checker'
+sub87=>subroutine: break
+cond92=>condition: if (user_type_choice == 3)
+op96=>operation: user_type = 'purchaser'
+sub98=>subroutine: break
+sub102=>subroutine: print('Invalid choice, please try again.\n')
+
+st3->io5
+io5->cond9
+cond9(yes)->op13
+op13->op110
+op110->op112
+op112->op114
+op114->cond117
+cond117(yes)->op121
+op121->cond124
+cond124(yes)->cond144
+cond144(yes)->sub148
+sub148->e151
+cond144(no)->cond124
+cond124(no)->sub159
+sub159->sub161
+sub161->e168
+cond117(no)->sub165
+sub165->e168
+cond9(no)->cond18
+cond18(yes)->sub65
+sub65->op67
+op67->cond70
+cond70(yes)->op74
+op74->sub76
+cond70(no)->cond81
+cond81(yes)->op85
+op85->sub87
+cond81(no)->cond92
+cond92(yes)->op96
+op96->sub98
+cond92(no)->sub102
+sub102->cond18
+cond18(no)->op110
+

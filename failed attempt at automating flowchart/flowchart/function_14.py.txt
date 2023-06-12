@@ -1,0 +1,20 @@
+st3=>start: start input_str
+io5=>inputoutput: input: question
+cond9=>condition: while True
+op32=>operation: user_input = input(question).strip()
+cond35=>condition: if (',' in user_input)
+sub39=>subroutine: print("',' is an invalid character. ", end='')
+io46=>inputoutput: output:  user_input
+e44=>end: end function return
+e52=>end: end input_str
+
+st3->io5
+io5->cond9
+cond9(yes)->op32
+op32->cond35
+cond35(yes)->sub39
+sub39->cond9
+cond35(no)->io46
+io46->e44
+cond9(no)->e52
+

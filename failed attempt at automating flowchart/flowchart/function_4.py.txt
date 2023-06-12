@@ -1,0 +1,65 @@
+st3=>start: start inventory_checker_user_interface
+io5=>inputoutput: input: inventory
+cond9=>condition: while True
+sub119=>subroutine: print('\nPlease input a number from the list to choose an operation.\n    1 = take stock\n    2 = search item\n    3 = list all items\n    9 = exit without saving changes\n    0 = exit, saving changes')
+op121=>operation: user_input = input_int('Please select a command: ')
+cond124=>condition: if (user_input == 1)
+sub128=>subroutine: take_stock(inventory)
+sub222=>subroutine: print()
+cond133=>condition: if (user_input == 2)
+sub137=>subroutine: search_items(inventory)
+cond142=>condition: if (user_input == 3)
+sub146=>subroutine: list_all_items(inventory)
+cond151=>condition: if (user_input == 9)
+op155=>operation: user_input = input('are you sure you want to exit WITHOUT SAVING? [y/n]: ')
+cond158=>operation: break if  (user_input.lower() == 'y')
+cond169=>condition: if (user_input.lower() == 'n')
+sub173=>subroutine: print('...')
+sub177=>subroutine: print('please answer in y or n')
+cond183=>condition: if (user_input == 0)
+op187=>operation: user_input = input('are you sure you want to exit WHILE SAVING ALL THE CHANGES YOU MADE? [y/n]: ')
+cond190=>condition: if (user_input.lower() == 'y')
+sub194=>subroutine: write_list_to_csv('inventory.txt', inventory)
+sub196=>subroutine: break
+cond202=>condition: if (user_input.lower() == 'n')
+sub206=>subroutine: print('...')
+sub210=>subroutine: print('please answer in y or n')
+sub215=>subroutine: print('Invalid input.')
+e226=>end: end inventory_checker_user_interface
+
+st3->io5
+io5->cond9
+cond9(yes)->sub119
+sub119->op121
+op121->cond124
+cond124(yes)->sub128
+sub128->sub222
+sub222(left)->cond9
+cond124(no)->cond133
+cond133(yes)->sub137
+sub137->sub222
+cond133(no)->cond142
+cond142(yes)->sub146
+sub146->sub222
+cond142(no)->cond151
+cond151(yes)->op155
+op155->cond158
+cond158->cond169
+cond169(yes)->sub173
+sub173->sub222
+cond169(no)->sub177
+sub177->sub222
+cond151(no)->cond183
+cond183(yes)->op187
+op187->cond190
+cond190(yes)->sub194
+sub194->sub196
+cond190(no)->cond202
+cond202(yes)->sub206
+sub206->sub222
+cond202(no)->sub210
+sub210->sub222
+cond183(no)->sub215
+sub215->sub222
+cond9(no)->e226
+
